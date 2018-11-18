@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="static/css/font-awesome.min.css" type="text/css">
+  <link rel="stylesheet" href="static/css/bootstrap-4.1.3.css">
+  <link rel="stylesheet" href="static/css/theme.css" type="text/css">
+</head>
+
+<body>
+  <div class="py-1">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1>TechSupport Decode<br></h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="py-0">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 pb-3"><a href="javascript:substitution()"><button class="btn btn-secondary" data-toggle="collapse" data-target="#substitution" href="#">Substitution<br></button></a></div>
+      </div>
+    </div>
+  </div>
+  <div id="substitution" class="collapse">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header"> Substitution</div>
+            <div class="card-body" id="substitutionresult">
+                <button class="buttonload">
+                  <i class="fa fa-circle-o-notch fa-spin"></i> Loading
+                 </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="py-0 pt-3 pb-0">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12"><a class="btn btn-secondary mb-3" data-toggle="collapse" data-target="#coltrans" href="#">Columnar Transposition<br></a></div>
+      </div>
+    </div>
+  </div>
+  <div id="coltrans" class="p-0 py-0 collapse">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card-header"> Do you have a key?</div>
+            <div class="card">
+              <div class="card-body" id="columntransresult">
+                  <div class="form-check mb-2">
+                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" data-toggle="collapse" data-target="#inputkey:not(.in)" checked>
+                      <label class="form-check-label" for="exampleRadios1">
+                      No; brute force
+                      </label>
+                    </div>
+                    <div class="form-check mb-1">
+                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2" data-toggle="collapse" data-target="#inputkey">
+                      <label class="form-check-label" for="exampleRadios2">
+                      I know the key length
+                      </label>
+                    </div>
+                <form id="inputkey" class="input-group collapse" class="form-inline">
+                  <div id="keybox">
+                    <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Enter key length; leave empty if unknown">
+                  </div>
+                </form>
+                <div class="col-md-12 mt-4"><a class="btn btn-secondary mb-3" href="javascript:columntrans()">Submit<br></a></div>
+              </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+  <script src="static/js/jquery-3.1.1.min.js"></script>
+  <script type="text/javascript">
+  function substitution(){
+      $.get('/substitution').then(function(data){
+        document.getElementById("substitutionresult").innerHTML = data;
+  });
+  }
+  function columntrans(){
+    $.ajax({
+    type: "POST",
+    url: "/columntrans",
+    contentType: "application/json",
+    data: JSON.stringify("5"),
+    dataType: "json",
+    success: function(response) {
+        console.log(response);
+    },
+    error: function(err) {
+        console.log(err);
+    }
+    });
+    
+  }
+</script>
+  <script src="static/js/popper.min.js"></script>
+  <script src="static/js/bootstrap.min.js"></script>
+</body>
+
+</html>
