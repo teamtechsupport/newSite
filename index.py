@@ -36,6 +36,7 @@ def columntrans():
     userinput = text.upper()
     regex = re.compile('[^A-Z]')
     colno = int(request.get_json())
+    print(colno)
     if colno > 1:
         return(transpos(regex.sub('', userinput), colno))
 
