@@ -3,7 +3,13 @@ import re
 import string
 import json
 import annealing_decryption
-from column_transposition import transpos
+import decrypt
+import random
+import math
+import itertools
+import requests
+from threading import Thread
+from column_transposition import *
 app = Flask(__name__)
 
 text = ""
@@ -37,16 +43,17 @@ def columntrans():
     regex = re.compile('[^A-Z]')
     colno = int(request.get_json())
     print(colno)
+    results = []
     if colno > 1:
-        return(transpos(regex.sub('', userinput), colno))
-
+        transpos(regex.sub('', userinput), colno, results)
     else:
         threads = []
+        print("goteem")
         for x in range(2, 10):
-            process = Thread(target=transpos, args=[
-                            regex.sub('', userinput), x])
-            process.start()
-            threads.append(process)
+            transpos(regex.sub('', userinput), x, results)
+    ourresults = results
+    resultsinstring = " ".join(ourresults)
+    return(resultsinstring)
 
 @app.route('/methods')
 def my_methods():

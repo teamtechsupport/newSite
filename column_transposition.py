@@ -32,7 +32,7 @@ class ngram_obj(object):
         return(cost)
 
 
-def transpos(text, colno):
+def transpos(text, colno, results):
     initkey = list(str(math.floor(1234567890 / (10**(10-colno)))))
 
     perms = list(itertools.permutations(initkey))
@@ -47,9 +47,6 @@ def transpos(text, colno):
         if newcost > cost:
             cost = newcost
             key = "".join((perms[x]))
-
-    print(decrypt.decrypt(
-        text, key, "transposition"))
-
+    results.append(decrypt.decrypt(text, key, "transposition"))
 
 regex = re.compile('[^A-Z]')

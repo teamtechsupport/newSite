@@ -70,7 +70,7 @@
                     </div>
                 <form id="inputkey" class="input-group collapse" class="form-inline">
                   <div id="keybox">
-                    <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Enter key length; leave empty if unknown">
+                    <input type="integer" class="form-control" id="columntranskey" placeholder="Enter key length; leave 0 if unknown" value="0">
                   </div>
                 </form>
                 <div class="col-md-12 mt-4"><a class="btn btn-secondary mb-3" href="javascript:columntrans()">Submit<br></a></div>
@@ -88,20 +88,23 @@
   });
   }
   function columntrans(){
+    var columntransposkey = "0";
+    columntransposkey = document.getElementById("columntranskey").value;
+    console.log(columntransposkey);
+    document.getElementById("columntransresult").innerHTML = "<button class='buttonload'><i class='fa fa-circle-o-notch fa-spin'></i> Loading</button>";
     $.ajax({
     type: "POST",
     url: "/columntrans",
     contentType: "application/json",
-    data: JSON.stringify("5"),
-    dataType: "json",
-    success: function(response) {
-        console.log(response);
+    data: columntransposkey,
+    dataType: "integer",
+    success: function(success) {
+      document.getElementById("columntransresult").innerHTML = success.responseText;
     },
     error: function(err) {
-        console.log(err);
+        document.getElementById("columntransresult").innerHTML = err.responseText;
     }
-    });
-    
+    })
   }
 </script>
   <script src="static/js/popper.min.js"></script>
