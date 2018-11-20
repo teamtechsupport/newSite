@@ -33,9 +33,7 @@
           <div class="card">
             <div class="card-header"> Substitution</div>
             <div class="card-body" id="substitutionresult">
-                <button class="buttonload">
-                  <i class="fa fa-circle-o-notch fa-spin"></i> Loading
-                 </button>
+                  <img src="static/images/spinner-solid.svg" class="loading fa-spin"> Loading</img>
             </div>
           </div>
         </div>
@@ -82,19 +80,21 @@
   </div>
   <script src="static/js/jquery-3.1.1.min.js"></script>
   <script type="text/javascript">
+  var urlParams = new URLSearchParams(window.location.search);
   function substitution(){
-      $.get('/substitution').then(function(data){
+      text = urlParams.get('yourtext');
+      $.get('/substitution?yourtext=' + text).then(function(data){
         document.getElementById("substitutionresult").innerHTML = data;
   });
   }
   function columntrans(){
     var columntransposkey = "0";
     columntransposkey = document.getElementById("columntranskey").value;
-    console.log(columntransposkey);
-    document.getElementById("columntransresult").innerHTML = "<button class='buttonload'><i class='fa fa-circle-o-notch fa-spin'></i> Loading</button>";
+    text = urlParams.get('yourtext');
+    document.getElementById("columntransresult").innerHTML = "<img src='static/images/spinner-solid.svg' class='loading fa-spin'> Loading</img>";
     $.ajax({
     type: "POST",
-    url: "/columntrans",
+    url: "/columntrans?yourtext=" + text,
     contentType: "application/json",
     data: columntransposkey,
     dataType: "integer",
