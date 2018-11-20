@@ -94,4 +94,5 @@ def anneal(text, key, ciphertype, keytype, keybreak):
                 acc += 1
 
         temp *= alpha  # slowly reduce temp
+    print(decrypt.decrypt(text, key, ciphertype))
     return(decrypt.decrypt(text, key, ciphertype))
